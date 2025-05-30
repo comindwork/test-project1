@@ -1,0 +1,23 @@
+name: CI on self-hosted
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    # Match any runner with the label "self-hosted"
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
